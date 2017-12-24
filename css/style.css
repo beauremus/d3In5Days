@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+}
+
+.bar {
+  background-color: teal;
+  margin-top: 2px;
+}
+
+#chart {
+  padding: 10px 10px 20px 50px;
+  margin-bottom: 20px;
+}
