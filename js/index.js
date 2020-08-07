@@ -34,12 +34,21 @@ const data = [{
   }
 ]
 
-const xScale = d3.scaleLinear()
-  .domain([0, 100])
+const min = 0
+const max = 120
+const data2 = [
+  {
+    name: 'Beau',
+    value: () => Math.floor(Math.random() * (max - min)) + min
+  }
+]
+
+const yScale = d3.scaleLinear()
+  .domain([0, 150])
   .range([0, width])
 
-const yScale = d3.scaleBand()
-  .domain(data.map((d) => d.name))
+const xScale = d3.scaleBand()
+  .domain(data2.map((d) => d.name))
   .range([0, height])
 
 const svg = d3.select('#chart')
@@ -53,20 +62,20 @@ const svg = d3.select('#chart')
 function render(subject) {
   const bars = d3.select('#chart')
     .selectAll('div')
-    .data(data, (d) => d.name)
+    .data(data2, (d) => d.name)
 
   const newBars = bars.enter()
     .append('div')
     .attr('class', 'bar')
-    .style('width', 0)
-    .style('height', () => `${yScale.bandwidth() - 2}px`)
+    .style('height', 0)
+    .style('width', () => `${xScale.bandwidth() - 2}px`)
 
   newBars.merge(bars)
     .transition()
-    .style('width', (d) => `${xScale(d[subject])}px`)
+    .style('height', (d) => `${yScale(d[subject])}px`)
 }
 
-render('math')
+render('value')
 
 const axisContainer = svg.append('g')
   .attr('transform', `translate(${margin.left}, ${margin.top})`)
